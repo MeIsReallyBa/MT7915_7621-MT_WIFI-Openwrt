@@ -1,0 +1,29 @@
+#
+# Copyright (C) 2013-2015 OpenWrt.org
+#
+
+. /lib/functions/uci-defaults.sh
+
+board_config_update
+
+case $(board_name) in
+friendlyarm,nanopi-r1)
+	ucidef_set_interfaces_lan_wan "eth1" "eth0"
+	;;
+lamobo,lamobo-r1)
+	ucidef_set_interfaces_lan_wan "lan1 lan2 lan3 lan4" wan
+	;;
+olimex,a20-olinuxino-micro)
+	ucidef_set_interface_lan "wlan0"
+	;;
+xunlong,orangepi-r1)
+	ucidef_set_interfaces_lan_wan "eth0" "eth1"
+	;;
+*)
+	ucidef_set_interface_lan "eth0"
+	;;
+esac
+
+board_config_flush
+
+exit 0
