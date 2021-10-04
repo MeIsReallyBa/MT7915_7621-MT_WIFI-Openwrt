@@ -141,6 +141,9 @@ void twSetLedStatus(UCHAR LinkStatus)
         return;
     }
     g_CurrentLinkStatus = LinkStatus;
+
+#ifdef WSC_INCLUDED
+#ifdef WSC_LED_SUPPORT
     switch (LinkStatus)
     {
         case LINK_STATUS_WPS_IN_PROCESS:
@@ -174,6 +177,8 @@ void twSetLedStatus(UCHAR LinkStatus)
             break;
     }
 
+#endif /* WSC_LED_SUPPORT */
+#endif /* WSC_INCLUDED */
 }
 /*=============================================================================================*/
 
@@ -478,10 +483,14 @@ VOID RTMPSetLEDStatus(RTMP_ADAPTER *pAd, UCHAR Status, UCHAR BandIdx)
 		break;
 	}
 
+#ifdef WSC_INCLUDED
+#ifdef WSC_LED_SUPPORT
     if (LED_MODE(pAd) == WPS_LED_MODE_13)
     {
         twSetLedStatus(LinkStatus);
     }
+#endif /* WSC_LED_SUPPORT */
+#endif /* WSC_INCLUDED */
 
 	if (IS_MT7615(pAd) || IS_MT7663(pAd) || IS_MT7626(pAd) || IS_MT7915(pAd)) {
 		if (Status == LED_RADIO_OFF) {
