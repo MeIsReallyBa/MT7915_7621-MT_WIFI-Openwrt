@@ -18103,6 +18103,7 @@ INT	Set_WscStop_Proc(
 		WscStop(pAd, FALSE, pWscControl);
 	}
 
+#ifdef WSC_LED_SUPPORT
 	if (ApHasSecuritySetting(pAd))
 	{
 		LinkStatus = LINK_STATUS_NORMAL_CONNECTION_WITH_SECURITY;
@@ -18112,6 +18113,7 @@ INT	Set_WscStop_Proc(
 		LinkStatus = LINK_STATUS_NORMAL_CONNECTION_WITHOUT_SECURITY;
 	}
 	twSetLedStatus(LinkStatus);
+#endif /* WSC_LED_SUPPORT */
 
 	pWscControl->bWscTrigger = FALSE;
 	MTWF_LOG(DBG_CAT_CFG, DBG_SUBCAT_ALL, DBG_LVL_TRACE, ("<===== Set_WscStop_Proc"));
